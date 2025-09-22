@@ -24,6 +24,10 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   const name = document.getElementById("name").value;
   const feedback = document.getElementById("feedback").value;
+  if (name.length === 0 || feedback.length === 0) {
+    alert('Please fille in both fields before submitting.');
+    return;
+  }
   formResponse.textContent = `Thank you, ${name}, for your feedback: "${feedback}"`;
   form.reset();
 });
