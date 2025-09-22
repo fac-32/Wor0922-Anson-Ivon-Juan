@@ -1,9 +1,10 @@
 body {
-    margin: 0;
-    font-family: var(--font-family);
+    margin: 0 auto;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
     background-color: var(--secondary-color);
     color: var(--text-color);
     line-height: 1.6;
+    width: 80vw
 }
 
 header {
