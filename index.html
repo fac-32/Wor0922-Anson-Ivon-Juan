@@ -7,10 +7,10 @@
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
-        <div class="header">
+        <header>
             <h1>Welcome to the Interactive Web Project</h1>
             <div>
-                <div class="nav">
+                <nav>
                     <div>
                         <a href="#section1" id="link-section1">Section 1</a>
                     </div>
@@ -20,26 +20,26 @@
                     <div>
                         <a href="#section3" id="link-section3">Section 3</a>
                     </div>
-                </div>
+                </nav>
             </div>
-        </div>
+        </header>
 
-        <div id="main">
-            <div id="section1" class="content-section">
+        <main>
+            <section id="section1" class="content-section">
                 <h2>Section 1: Introduction</h2>
                 <p>This section contains an introduction to the project.</p>
                 <button id="btn-toggle1">Toggle Info</button>
                 <div class="hidden-info">Here is some hidden information.</div>
-            </div>
+            </section>
 
-            <div id="section2" class="content-section">
+            <section id="section2" class="content-section">
                 <h2>Section 2: Interactive Area</h2>
                 <p>Try interacting with the elements below.</p>
                 <button id="btn-change-color">Change Background Color</button>
                 <div id="color-box">Watch me change!</div>
-            </div>
+            </section>
 
-            <div id="section3" class="content-section">
+            <section id="section3" class="content-section">
                 <h2>Section 3: Form Section</h2>
                 <form id="feedback-form">
                     <label for="name">Name:</label>
@@ -51,12 +51,14 @@
                     <button type="submit">Submit</button>
                 </form>
                 <div id="form-response"></div>
-            </div>
-        </div>
+            </section>
+            <setion id="section4"></setion>
+        </main>
 
-        <div class="footer">
+
+        <footer>
             <p>Project created for JavaScript and DOM manipulation practice.</p>
-        </div>
+        </footer>
 
         <script src="script.js"></script>
     </body>
