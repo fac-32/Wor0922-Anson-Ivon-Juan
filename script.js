@@ -11,9 +11,12 @@ const colorButton = document.getElementById("btn-change-color");
 const colorBox = document.getElementById("color-box");
 
 colorButton.addEventListener("click", () => {
-  const colors = ["#FF5733", "#33FF57", "#3357FF", "#F3FF33"];
-  const randomColor = colors[Math.floor(Math.random() * colors.length)];
-  colorBox.style.backgroundColor = randomColor;
+  const red = Math.floor(Math.random() * 256);
+const green = Math.floor(Math.random() * 256);
+const blue = Math.floor(Math.random() * 256);
+
+const randomColor = `rgb(${red}, ${green}, ${blue})`;
+colorBox.style.backgroundColor = randomColor;
 });
 
 // Form submission handling
