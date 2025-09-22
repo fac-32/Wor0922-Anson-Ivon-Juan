@@ -4,7 +4,8 @@ body {
     background-color: var(--secondary-color);
     color: var(--text-color);
     line-height: 1.6;
-    width: 80vw
+    width: 80vw;
+    background-color: #e5e5d7;
 }
 
 header {
@@ -30,11 +31,13 @@ nav {
 }
 
 button {
-    background-color: green;
+    background-color: #1e5d1e;
+;
     color: white;
     border: none;
     padding: 0.5rem 1rem;
     border-radius: var(--border-radius);
+    border-radius: 80px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
