@@ -52,7 +52,7 @@ const animateBall = () => {
   context.clearRect(0, 0, canvas.width, canvas.height);
 
   if (mouseX !== undefined && mouseY !== undefined) {
-    let speed = 0.3;
+    let speed = 0.03;
     ballX += (mouseX - ballX) * speed;
     ballY += (mouseY - ballY) * speed;
   }
@@ -94,7 +94,7 @@ canvasSection.appendChild(canvas);
 const context = canvas.getContext("2d");
 
 canvas.addEventListener("mousemove", updateMouseCoordinates);
-setInterval(runGame, 100);
+setInterval(runGame, 10);
 
 /* PROMPTS FOR ADDITIONAL INTERACTIONS
 
