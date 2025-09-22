@@ -64,15 +64,30 @@ const runGame = () => {
   animateBall();
 };
 
-const canvasSection = document.createElement("section");
-canvasSection.classList.add("content-section");
+const canvasSection = document.createElement("div");
 canvasSection.style.display = "flex";
 canvasSection.style.justifyContent = "center";
 document.getElementById("section4").appendChild(canvasSection);
 
 const canvas = document.createElement("canvas");
-canvas.setAttribute("width", "700");
-canvas.setAttribute("height", "500");
+const MAX_WIDTH = 700;
+const MAX_HEIGHT = 500;
+
+function resizeCanvas() {
+  // Calculate desired width/height
+  let newWidth = window.innerWidth / 1.5;
+  let newHeight = window.innerWidth / 2;
+
+  // Clamp to maximums
+  canvas.width = Math.min(newWidth, MAX_WIDTH);
+  canvas.height = Math.min(newHeight, MAX_HEIGHT);
+}
+
+// Run once and also on resize
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+
 canvas.style.border = "1px black solid";
 canvasSection.appendChild(canvas);
 
