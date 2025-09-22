@@ -68,7 +68,7 @@ const canvasSection = document.createElement("section");
 canvasSection.classList.add("content-section");
 canvasSection.style.display = "flex";
 canvasSection.style.justifyContent = "center";
-document.querySelector("#main").appendChild(canvasSection);
+document.getElementById("section4").appendChild(canvasSection);
 
 const canvas = document.createElement("canvas");
 canvas.setAttribute("width", "700");
