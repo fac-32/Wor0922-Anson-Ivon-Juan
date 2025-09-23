@@ -1,10 +1,65 @@
 // Toggle hidden information
 const toggleButton = document.getElementById("btn-toggle1");
+const colorQuestion = document.getElementById("color-text");
+const changeColor = document.getElementById("btn-chnageColor");
 const hiddenInfo = document.querySelector(".hidden-info");
 
-toggleButton.addEventListener("click", () => {
-  hiddenInfo.classList.toggle("hidden-info");
+const Colors = [
+  {
+    color: "#FF0000",
+    text: "Red"
+  },
+  {
+    color: "#00FF00", 
+    text: "Green"
+  },
+  {
+    color: "#0000FF", 
+    text: "Blue"
+  }
+];
+
+let currentColor = Colors[0];
+let cIndex = 0;
+colorQuestion.textContent = 'which one is: ' + currentColor.text;
+
+const TextColorBtn = document.getElementById("text-cl-btn");
+const OutlineColorBtn = document.getElementById("outline-cl-btn");
+const BackgroundColorBtn = document.getElementById("background-cl-btn");
+const section1 = document.getElementById("section1");
+
+TextColorBtn.style.color = currentColor.color;
+TextColorBtn.style.backgroundColor = "#FFFF";
+OutlineColorBtn.style.outline = `thick solid ${currentColor.color}`;
+OutlineColorBtn.style.backgroundColor = "#FFFF";
+OutlineColorBtn.style.color = "#000000ff";
+BackgroundColorBtn.style.backgroundColor = currentColor.color;
+
+function nextColor()
+{
+    cIndex = (cIndex + 1) % Colors.length;
+    currentColor = Colors[cIndex];
+    colorQuestion.textContent = 'which one is: ' + currentColor.text;
+
+    TextColorBtn.style.color = currentColor.color;
+    OutlineColorBtn.style.outlineColor = currentColor.color;
+    BackgroundColorBtn.style.backgroundColor = currentColor.color;
+}
+
+section1.addEventListener("click", (e) => {
+  const target = e.target;
+
+  if (target.id === "btn-chnageColor") {
+    hiddenInfo.setAttribute("aria-hidden", "true");
+    nextColor();
+  }
+
+  if (target.classList.contains("btn-toggle1")) {
+    hiddenInfo.setAttribute("aria-hidden", "false");
+  }
 });
+
+
 
 // Change background color of the box
 let colourInterval;
