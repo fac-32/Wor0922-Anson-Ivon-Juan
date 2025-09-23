@@ -35,6 +35,9 @@ form.addEventListener("submit", (event) => {
     alert('Please fille in both fields before submitting.');
     return;
   }
+  if (!/^[a-z0-9\s]+$/.test(name)) {
+    alert('Please only include alphanumeric characters in your name.');
+  }
   formResponse.textContent = `Thank you, ${name}, for your feedback: "${feedback}"`;
   form.reset();
 });
