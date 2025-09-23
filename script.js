@@ -23,11 +23,15 @@ colorBox.style.backgroundColor = randomColor;
 const form = document.getElementById("feedback-form");
 const formResponse = document.getElementById("form-response");
 
+// form.addEventListener("input", () => {
+//   console.log(form.validity);
+// });
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const name = document.getElementById("name").value;
   const feedback = document.getElementById("feedback").value;
-  if (name.length === 0 || feedback.length === 0) {
+  if (name.trim().length === 0 || feedback.trim().length === 0) {
     alert('Please fille in both fields before submitting.');
     return;
   }
