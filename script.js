@@ -7,13 +7,35 @@ toggleButton.addEventListener("click", () => {
 });
 
 // Change background color of the box
-const colorButton = document.getElementById("btn-change-color");
+const manualInterval = document.getElementById("manual-interval");
+const manualStop = document.getElementById("manual-stop");
+const autoStop = document.getElementById("auto-stop");
+let colourInterval;
 const colorBox = document.getElementById("color-box");
 
-colorButton.addEventListener("click", () => {
+function colourBoxChange () {
   const colors = ["#FF5733", "#33FF57", "#3357FF", "#F3FF33"];
   const randomColor = colors[Math.floor(Math.random() * colors.length)];
   colorBox.style.backgroundColor = randomColor;
+};
+
+manualInterval.addEventListener("click", () => {
+    colourInterval = setInterval(() => {
+        colourBoxChange();
+    }, 500);
+});
+
+manualStop.addEventListener("click", () => {
+    clearInterval(colourInterval);
+});
+
+autoStop.addEventListener("click", () => {
+    setTimeout(() => {
+        clearInterval(colourInterval);
+    }, 5000);
+    colourInterval = setInterval(() => {
+        colourBoxChange();
+    }, 500);
 });
 
 // Form submission handling
