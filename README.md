@@ -1,8 +1,13 @@
 # Introduction Week Template
 This repo is a template codebase for the FAC-32 induction week
 
-## Overview
+## Overview - this project specific
 An interactive web page demonstrating DOM manipulation, event handling, and HTML5 Canvas animations.
+Run server on deafult port 3000 with
+```
+npm start
+```
+
 
 ## Features
 - **Toggle Information**: Show/hide content with button interaction
