@@ -7,7 +7,9 @@ toggleButton.addEventListener("click", () => {
 });
 
 // Change background color of the box
-const colorButton = document.getElementById("btn-change-color");
+const manualInterval = document.getElementById("manual-interval");
+const manualStop = document.getElementById("manual-stop");
+const autoStop = document.getElementById("auto-stop");
 const colorBox = document.getElementById("color-box");
 
 colorButton.addEventListener("click", () => {
