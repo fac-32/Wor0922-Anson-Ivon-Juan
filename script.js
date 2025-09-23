@@ -42,14 +42,6 @@ form.addEventListener("submit", (event) => {
   form.reset();
 });
 
-// change default validation error when name is less than min character
-const formName = document.getElementById("name");
-formName.addEventListener("input", () => {
-  if ( formName.validity.tooShort ) {
-    formName.setCustomValidity("Your name should be 2 or more characters long");
-  }
-});
-
 // show the number of characters in the feedback field
 const counter = document.getElementById("character-counter");
 const feedback = document.getElementById("feedback");

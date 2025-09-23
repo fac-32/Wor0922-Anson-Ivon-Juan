@@ -77,6 +77,11 @@ textarea {
     width: 100%;
 }
 
+#character-counter {
+    color: grey;
+    font-size: 0.75rem;
+}
+
 footer {
     text-align: center;
     padding: 1rem;
