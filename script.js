@@ -23,18 +23,18 @@ colorBox.style.backgroundColor = randomColor;
 const form = document.getElementById("feedback-form");
 const formResponse = document.getElementById("form-response");
 
-// form.addEventListener("input", () => {
-//   console.log(form.validity);
-// });
-
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const name = document.getElementById("name").value;
   const feedback = document.getElementById("feedback").value;
+
+  // check something other than space has been entered
   if (name.trim().length === 0 || feedback.trim().length === 0) {
     alert('Please fille in both fields before submitting.');
     return;
   }
+
+  // make sure name is alphanumeric
   if (!/^[a-z0-9\s]+$/.test(name)) {
     alert('Please only include alphanumeric characters in your name.');
   }
@@ -42,16 +42,25 @@ form.addEventListener("submit", (event) => {
   form.reset();
 });
 
+// change default validation error when name is less than min character
 const formName = document.getElementById("name");
-
 formName.addEventListener("input", () => {
   if ( formName.validity.tooShort ) {
     formName.setCustomValidity("Your name should be 2 or more characters long");
   }
 });
 
+// show the number of characters in the feedback field
+const counter = document.getElementById("character-counter");
+const feedback = document.getElementById("feedback");
+feedback.addEventListener("input", () => {
+  counter.textContent = `character counter: ${feedback.value.length}`;
+});
 
-
+// get rid of counter when the user is no longer focused on it
+feedback.addEventListener("blur", () => {
+  counter.textContent = "";
+});
 
 // Ball following mouse on canvas
 let circleWidth = 20;
