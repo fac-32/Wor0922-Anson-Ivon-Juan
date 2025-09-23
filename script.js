@@ -42,6 +42,17 @@ form.addEventListener("submit", (event) => {
   form.reset();
 });
 
+const formName = document.getElementById("name");
+
+formName.addEventListener("input", () => {
+  if ( formName.validity.tooShort ) {
+    formName.setCustomValidity("Your name should be 2 or more characters long");
+  }
+});
+
+
+
+
 // Ball following mouse on canvas
 let circleWidth = 20;
 let mouseX = 350;
