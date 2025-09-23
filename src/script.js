@@ -73,7 +73,6 @@ function colourBoxChange () {
 
 const colourBtnGp = document.getElementById("colour-btn-group");
 colourBtnGp.addEventListener("click", (event) => {
-    const btnID = event.target.id;
     switch(event.target.id) {
         case "manual-interval":
             colourInterval = setInterval(() => {
