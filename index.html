@@ -30,9 +30,13 @@
         <main>
             <section id="section1" class="content-section">
                 <h2>Introduction</h2>
-                <p>This section contains an introduction to the project.</p>
-                <button id="btn-toggle1">Toggle Info</button>
-                <div class="hidden-info">This project helped us to practice responsiveness, work on the style and in the accessibility</div>
+                <p id="color-text"></p>
+                <button class="btn-toggle1" id="text-cl-btn">Blue</button>
+                <button class="btn-toggle1" id="outline-cl-btn">Green</button>
+                <button class="btn-toggle1" id="background-cl-btn">Red</button>
+                <div class="hidden-info">WRONG!! it was the one next to it 
+                    <button id="btn-chnageColor">Next Color</button>
+                </div>
             </section>
 
             <section id="section2" class="content-section">
@@ -43,20 +47,24 @@
                     <li>Stop it! : as you can tell :P</li>
                     <li>Self stop change ;) : once clicked, the colour will start changing every half a second. It will stop itself after 5 seconds</li>
                 </ul>
-                <button id="manual-interval">Change!</button>
-                <button id="manual-stop">Stop it!</button>
-                <button id="auto-stop">Self stop change ;)</button>
+                <div id="colour-btn-group">
+                    <button id="manual-interval">Change!</button>
+                    <button id="manual-stop">Stop it!</button>
+                    <button id="auto-stop">Self stop change ;)</button>
                 <div id="color-box">Watch me change!</div>
+                </div>
             </section>
 
             <section id="section3" class="content-section">
                 <h2>Form Section</h2>
                 <form id="feedback-form">
                     <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" />
+                    <input type="text" id="name" name="name" minlength="2" placeholder="Enter your name"/>
 
                     <label for="feedback">Feedback:</label>
-                    <textarea id="feedback" name="feedback"></textarea>
+                    <textarea id="feedback" name="feedback" maxlength="100" placeholder="Leave us some feedback (max 100 characters)"></textarea>
+
+                    <div id="character-counter"></div>
 
                     <button type="submit">Submit</button>
                 </form>

@@ -1,15 +1,67 @@
 // Toggle hidden information
 const toggleButton = document.getElementById("btn-toggle1");
+const colorQuestion = document.getElementById("color-text");
+const changeColor = document.getElementById("btn-chnageColor");
 const hiddenInfo = document.querySelector(".hidden-info");
 
-toggleButton.addEventListener("click", () => {
-  hiddenInfo.classList.toggle("hidden-info");
+const Colors = [
+  {
+    color: "#FF0000",
+    text: "Red"
+  },
+  {
+    color: "#00FF00", 
+    text: "Green"
+  },
+  {
+    color: "#0000FF", 
+    text: "Blue"
+  }
+];
+
+let currentColor = Colors[0];
+let cIndex = 0;
+colorQuestion.textContent = 'which one is: ' + currentColor.text;
+
+const TextColorBtn = document.getElementById("text-cl-btn");
+const OutlineColorBtn = document.getElementById("outline-cl-btn");
+const BackgroundColorBtn = document.getElementById("background-cl-btn");
+const section1 = document.getElementById("section1");
+
+TextColorBtn.style.color = currentColor.color;
+TextColorBtn.style.backgroundColor = "#FFFF";
+OutlineColorBtn.style.outline = `thick solid ${currentColor.color}`;
+OutlineColorBtn.style.backgroundColor = "#FFFF";
+OutlineColorBtn.style.color = "#000000ff";
+BackgroundColorBtn.style.backgroundColor = currentColor.color;
+
+function nextColor()
+{
+    cIndex = (cIndex + 1) % Colors.length;
+    currentColor = Colors[cIndex];
+    colorQuestion.textContent = 'which one is: ' + currentColor.text;
+
+    TextColorBtn.style.color = currentColor.color;
+    OutlineColorBtn.style.outlineColor = currentColor.color;
+    BackgroundColorBtn.style.backgroundColor = currentColor.color;
+}
+
+section1.addEventListener("click", (e) => {
+  const target = e.target;
+
+  if (target.id === "btn-chnageColor") {
+    hiddenInfo.setAttribute("aria-hidden", "true");
+    nextColor();
+  }
+
+  if (target.classList.contains("btn-toggle1")) {
+    hiddenInfo.setAttribute("aria-hidden", "false");
+  }
 });
 
+
+
 // Change background color of the box
-const manualInterval = document.getElementById("manual-interval");
-const manualStop = document.getElementById("manual-stop");
-const autoStop = document.getElementById("auto-stop");
 let colourInterval;
 const colorBox = document.getElementById("color-box");
 
@@ -19,24 +71,28 @@ function colourBoxChange () {
   colorBox.style.backgroundColor = randomColor;
 };
 
-manualInterval.addEventListener("click", () => {
-    colourInterval = setInterval(() => {
-        colourBoxChange();
-    }, 500);
-});
-
-manualStop.addEventListener("click", () => {
-    clearInterval(colourInterval);
-});
-
-autoStop.addEventListener("click", () => {
-    setTimeout(() => {
-        clearInterval(colourInterval);
-    }, 5000);
-    colourInterval = setInterval(() => {
-        colourBoxChange();
-    }, 500);
-});
+const colourBtnGp = document.getElementById("colour-btn-group");
+colourBtnGp.addEventListener("click", (event) => {
+    const btnID = event.target.id;
+    switch(event.target.id) {
+        case "manual-interval":
+            colourInterval = setInterval(() => {
+                colourBoxChange();
+            }, 500);
+            break;
+        case "manual-stop":
+            clearInterval(colourInterval);
+            break;
+        case "auto-stop":
+            setTimeout(() => {
+                clearInterval(colourInterval);
+            }, 5000);
+            colourInterval = setInterval(() => {
+                colourBoxChange();
+            }, 500);
+            break;
+    }
+})
 
 // Form submission handling
 const form = document.getElementById("feedback-form");
@@ -46,12 +102,31 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   const name = document.getElementById("name").value;
   const feedback = document.getElementById("feedback").value;
-  if (name.length === 0 || feedback.length === 0) {
+
+  // check something other than space has been entered
+  if (name.trim().length === 0 || feedback.trim().length === 0) {
     alert('Please fille in both fields before submitting.');
     return;
   }
+
+  // make sure name is alphanumeric
+  if (!/^[a-z0-9\s]+$/.test(name)) {
+    alert('Please only include alphanumeric characters in your name.');
+  }
   formResponse.textContent = `Thank you, ${name}, for your feedback: "${feedback}"`;
   form.reset();
+});
+
+// show the number of characters in the feedback field
+const counter = document.getElementById("character-counter");
+const feedback = document.getElementById("feedback");
+feedback.addEventListener("input", () => {
+  counter.textContent = `character counter: ${feedback.value.length}`;
+});
+
+// get rid of counter when the user is no longer focused on it
+feedback.addEventListener("blur", () => {
+  counter.textContent = "";
 });
 
 // Ball following mouse on canvas

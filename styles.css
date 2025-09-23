@@ -53,6 +53,14 @@ button:hover {
     border: 1px solid green;
 }
 
+.hidden-info[aria-hidden="true"] {
+    display: none;
+}
+
+.hidden-info[aria-hidden="false"] {
+    display: block;
+}
+
 #color-box {
     width: 100%;
     height: 100px;
@@ -75,6 +83,11 @@ textarea {
     padding: 0.5rem;
     border: 1px solid #ccc;
     width: 100%;
+}
+
+#character-counter {
+    color: grey;
+    font-size: 0.75rem;
 }
 
 footer {
