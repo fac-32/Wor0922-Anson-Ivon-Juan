@@ -102,12 +102,31 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   const name = document.getElementById("name").value;
   const feedback = document.getElementById("feedback").value;
-  if (name.length === 0 || feedback.length === 0) {
+
+  // check something other than space has been entered
+  if (name.trim().length === 0 || feedback.trim().length === 0) {
     alert('Please fille in both fields before submitting.');
     return;
   }
+
+  // make sure name is alphanumeric
+  if (!/^[a-z0-9\s]+$/.test(name)) {
+    alert('Please only include alphanumeric characters in your name.');
+  }
   formResponse.textContent = `Thank you, ${name}, for your feedback: "${feedback}"`;
   form.reset();
+});
+
+// show the number of characters in the feedback field
+const counter = document.getElementById("character-counter");
+const feedback = document.getElementById("feedback");
+feedback.addEventListener("input", () => {
+  counter.textContent = `character counter: ${feedback.value.length}`;
+});
+
+// get rid of counter when the user is no longer focused on it
+feedback.addEventListener("blur", () => {
+  counter.textContent = "";
 });
 
 // Ball following mouse on canvas
