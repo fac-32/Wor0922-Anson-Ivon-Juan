@@ -3,10 +3,11 @@ This repo is a template codebase for the FAC-32 induction week
 
 ## Overview - this project specific
 An interactive web page demonstrating DOM manipulation, event handling, and HTML5 Canvas animations.
-Run server on deafult port 3000 with
+Run server on deafult port 3000 with the following command with hot reload
 ```
-npm start
+npm run dev
 ```
+* Note: ```npm start``` in current script runs a production server WITHOUT hot reload.
 
 
 ## Features
