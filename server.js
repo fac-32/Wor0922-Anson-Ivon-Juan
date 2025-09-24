@@ -30,13 +30,28 @@ app.get('/ZEN',(req, res) => {
   res.sendFile(path.join(__dirname, 'src/Zindex.html'));
 });
 
+
 app.get("/rafi", (req, res) => {
-  res.sendFile(path.join(__dirname, "src/rafi.html"));
+  res.sendFile(path.join(__dirname, 'src/rafi.html'));
 });
+
+//Only runs if the request is:
+//Method: GET
+//Path: /ZEN
+//👉 This is for specific routes you want to define, like /about, /contact, /products, etc.
+
+//app.use(handler)
+//Runs for all HTTP methods (GET, POST, etc.).
+//Runs for all paths unless you specify one.
+//This has no path, so it matches everything that hasn’t already been handled.
+//That’s why it’s called a fallback / catch-all.
+//👉 This is useful for:
+//Middleware (code that runs before routes, like logging or authentication).
+//Catch-all routes (like “if nothing else matched, send index.html”).
 
 // Fallback: send index.html if route not found (useful if you later add client-side routing)
 app.use((req, res) => {
-  res.sendFile(path.join(__dirname, "src/index.html"));
+  res.sendFile(path.join(__dirname, 'src/index.html'));
 });
 
 //This is a fallback route.
