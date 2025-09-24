@@ -2,16 +2,16 @@
   "name": "wor0922-anson-ivon-juan",
   "version": "1.0.0",
   "description": "This repo is a template codebase for the FAC-32 induction week",
-  "main": "script.js",
+  "main": "server.js",
   "scripts": {
-      "start": "node app.js",
-      "dev": "nodemon app.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fac-32/Wor0922-Anson-Ivon-Juan.git"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {

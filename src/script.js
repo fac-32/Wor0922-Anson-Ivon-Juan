@@ -62,17 +62,33 @@ section1.addEventListener("click", (e) => {
 
 
 // Change background color of the box
-const colorButton = document.getElementById("btn-change-color");
+let colourInterval;
 const colorBox = document.getElementById("color-box");
 
-colorButton.addEventListener("click", () => {
-  const red = Math.floor(Math.random() * 256);
-const green = Math.floor(Math.random() * 256);
-const blue = Math.floor(Math.random() * 256);
+function colourBoxChange () {
+  const colors = ["#FF5733", "#33FF57", "#3357FF", "#F3FF33"];
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+  colorBox.style.backgroundColor = randomColor;
+};
 
-const randomColor = `rgb(${red}, ${green}, ${blue})`;
-colorBox.style.backgroundColor = randomColor;
-});
+const colourBtnGp = document.getElementById("colour-btn-group");
+colourBtnGp.addEventListener("click", (event) => {
+    // clear interval is done first to avoid creating overlapping intervals
+    // it duplicates the would-be implementation for for manual stop button
+    // hence case "manual-stop" is omitted in the switch board
+    clearInterval(colourInterval);
+    switch(event.target.id) {
+        case "manual-interval":
+            colourInterval = setInterval(colourBoxChange, 500);
+            break;
+        case "auto-stop":
+            setTimeout(() => {
+                clearInterval(colourInterval);
+            }, 5000);
+            colourInterval = setInterval(colourBoxChange, 500);
+            break;
+    }
+})
 
 // Form submission handling
 const form = document.getElementById("feedback-form");
@@ -82,12 +98,31 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   const name = document.getElementById("name").value;
   const feedback = document.getElementById("feedback").value;
-  if (name.length === 0 || feedback.length === 0) {
+
+  // check something other than space has been entered
+  if (name.trim().length === 0 || feedback.trim().length === 0) {
     alert('Please fille in both fields before submitting.');
     return;
   }
+
+  // make sure name is alphanumeric
+  if (!/^[a-z0-9\s]+$/.test(name)) {
+    alert('Please only include alphanumeric characters in your name.');
+  }
   formResponse.textContent = `Thank you, ${name}, for your feedback: "${feedback}"`;
   form.reset();
+});
+
+// show the number of characters in the feedback field
+const counter = document.getElementById("character-counter");
+const feedback = document.getElementById("feedback");
+feedback.addEventListener("input", () => {
+  counter.textContent = `character counter: ${feedback.value.length}`;
+});
+
+// get rid of counter when the user is no longer focused on it
+feedback.addEventListener("blur", () => {
+  counter.textContent = "";
 });
 
 // Ball following mouse on canvas
