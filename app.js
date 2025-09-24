@@ -41,11 +41,9 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
-<<<<<<< Updated upstream:app.js
-=======
 
 //Starts the server and tells it to listen on the port you defined.
 //The callback runs once the server starts successfully.
 //console.log() prints a message so you know your server is running.
 //you will see the log in the command prompt
->>>>>>> Stashed changes:server.js
+
