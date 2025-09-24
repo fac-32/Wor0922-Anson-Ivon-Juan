@@ -1,13 +1,39 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Z PAGE</title>
-    </head>
-    <body>
-        HELLO WORLD
-        <a href="/">Back home</a>
-    </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login</title>
+</head>
+<body>
+  <a href="/">Back home</a>
 
-</html>    
+  <section id="section3" class="content-section">
+    <h2>Log in</h2>
+
+<form id="login" action="/login" method="POST">
+  <label for="UserName">UserName:</label>
+  <input type="text" id="name" name="name" minlength="2" placeholder="UserName" />
+
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" maxlength="20" placeholder="Password" />
+
+  <button type="submit">Log In</button>
+</form>
+
+
+    <div id="form-response" aria-live="polite"></div>
+  </section>
+
+  <script>
+    
+    const pwInput = document.getElementById('password');
+    const counter = document.getElementById('character-counter');
+    if (pwInput && counter) {
+      const update = () => counter.textContent = pwInput.value.length + ' / ' + pwInput.maxLength;
+      pwInput.addEventListener('input', update);
+      update();
+    }
+  </script>
+</body>
+</html>

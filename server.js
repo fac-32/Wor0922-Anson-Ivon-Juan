@@ -16,8 +16,8 @@ const PORT = process.env.PORT || 3000;
 //process.env.PORT → If you deploy to a cloud service, it might assign a port automatically.
 //|| 3000 → If there’s no environment variable, it defaults to port 3000.
 
-// Serve everything inside your project folder (HTML, CSS, JS, images)
-app.use(express.static(path.join(__dirname)));
+// Serve static files from src/ (CSS, client JS, images, html)
+app.use(express.static(path.join(__dirname, 'src')));
 
 //__dirname is a special variable in Node.
 //It always contains the absolute path of the folder where the current JS file lives.
@@ -26,6 +26,30 @@ app.get('/ZEN',(req, res) => {
   res.sendFile(path.join(__dirname, 'src/Zindex.html'));
 });
 
+<<<<<<< Updated upstream
+=======
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Middleware: simple login check
+app.post('/login', (req, res) => {
+  let name = req.body.name;
+  let password = req.body.password;
+
+  if (name === 'zen' && password === '111') {
+    res.send('✅ Login successful! Welcome ' + name); 
+  } else {
+    return res.status(401).send('Invalid username or password');
+  }
+});
+
+
+
+app.get("/rafi", (req, res) => {
+  res.sendFile(path.join(__dirname, 'src/rafi.html'));
+});
+
+>>>>>>> Stashed changes
 //Only runs if the request is:
 //Method: GET
 //Path: /ZEN
