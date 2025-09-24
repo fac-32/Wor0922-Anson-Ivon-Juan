@@ -73,15 +73,18 @@ function colourBoxChange () {
 
 const colourBtnGp = document.getElementById("colour-btn-group");
 colourBtnGp.addEventListener("click", (event) => {
-    // clear interval is done first to avoid creating overlapping intervals
-    // it duplicates the would-be implementation for for manual stop button
-    // hence case "manual-stop" is omitted in the switch board
-    clearInterval(colourInterval);
     switch(event.target.id) {
+        // clear interval is not explicitly called went the click actually lands on buttons
+        // to prevent triggering when clicking on empty space inside wrapper div
         case "manual-interval":
+            clearInterval(colourInterval);
             colourInterval = setInterval(colourBoxChange, 500);
             break;
+        case "manual-stop":
+            clearInterval(colourInterval);
+            break;
         case "auto-stop":
+            clearInterval(colourInterval);
             setTimeout(() => {
                 clearInterval(colourInterval);
             }, 5000);
