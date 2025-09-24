@@ -19,6 +19,10 @@ const PORT = process.env.PORT || 3000;
 // Serve everything inside your project folder (HTML, CSS, JS, images)
 app.use(express.static(path.join(__dirname)));
 
+app.get('/anson-page', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src/anson-page.html'));
+})
+
 //__dirname is a special variable in Node.
 //It always contains the absolute path of the folder where the current JS file lives.
 
