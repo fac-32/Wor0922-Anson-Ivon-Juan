@@ -26,6 +26,10 @@ app.get('/anson-page', (req, res) => {
 //__dirname is a special variable in Node.
 //It always contains the absolute path of the folder where the current JS file lives.
 
+app.get('/ZEN',(req, res) => {
+  res.sendFile(path.join(__dirname, 'src/Zindex.html'));
+});
+
 // Fallback: send index.html if route not found (useful if you later add client-side routing)
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'src/index.html'));
@@ -40,6 +44,7 @@ app.use((req, res) => {
 //path.join(__dirname, 'src/index.html'):
 //Combines your current folder path with src/index.html.
 //Ensures it works on all operating systems.
+
 
 // Start the server
 app.listen(PORT, () => {
