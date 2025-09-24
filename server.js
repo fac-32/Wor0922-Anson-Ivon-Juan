@@ -30,6 +30,11 @@ app.get('/ZEN',(req, res) => {
   res.sendFile(path.join(__dirname, 'src/Zindex.html'));
 });
 
+
+app.get("/rafi", (req, res) => {
+  res.sendFile(path.join(__dirname, 'src/rafi.html'));
+});
+
 //Only runs if the request is:
 //Method: GET
 //Path: /ZEN
