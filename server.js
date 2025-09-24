@@ -19,12 +19,35 @@ const PORT = process.env.PORT || 3000;
 // Serve everything inside your project folder (HTML, CSS, JS, images)
 app.use(express.static(path.join(__dirname)));
 
+app.get('/anson-page', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src/anson-page.html'));
+})
+
 //__dirname is a special variable in Node.
 //It always contains the absolute path of the folder where the current JS file lives.
 
 app.get('/ZEN',(req, res) => {
   res.sendFile(path.join(__dirname, 'src/Zindex.html'));
 });
+
+
+app.get("/rafi", (req, res) => {
+  res.sendFile(path.join(__dirname, 'src/rafi.html'));
+});
+
+//Only runs if the request is:
+//Method: GET
+//Path: /ZEN
+//👉 This is for specific routes you want to define, like /about, /contact, /products, etc.
+
+//app.use(handler)
+//Runs for all HTTP methods (GET, POST, etc.).
+//Runs for all paths unless you specify one.
+//This has no path, so it matches everything that hasn’t already been handled.
+//That’s why it’s called a fallback / catch-all.
+//👉 This is useful for:
+//Middleware (code that runs before routes, like logging or authentication).
+//Catch-all routes (like “if nothing else matched, send index.html”).
 
 // Fallback: send index.html if route not found (useful if you later add client-side routing)
 app.use((req, res) => {
