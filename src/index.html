@@ -33,12 +33,12 @@
         <main>
             <section id="section1" class="content-section">
                 <h2>Introduction</h2>
-                <p id="color-text"></p>
-                <button class="btn-toggle1" id="text-cl-btn">Blue</button>
-                <button class="btn-toggle1" id="outline-cl-btn">Green</button>
-                <button class="btn-toggle1" id="background-cl-btn">Red</button>
-                <div class="hidden-info">WRONG!! it was the one next to it 
-                    <button id="btn-chnageColor">Next Color</button>
+                <p id="Question"></p>
+                <button class="btn-toggle1" id="True" action="/true" method="POST">True</button>
+                <button class="btn-toggle1" id="False" action="/false" method="POST">False</button>
+                <div class="hidden-info" id="result" display="none"> 
+                    <p id="feedback" style="padding: 10px;"></p>
+                    <button id="next-question" action="/nextQ" method="POST">Next Question</button>
                 </div>
             </section>
 
