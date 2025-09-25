@@ -24,18 +24,13 @@ app.get('/anson-page', (req, res) => {
 })
 
 app.get('/anson-page/capy-btn', async (req, res) => {
-    console.log("end point");
     try {
-        console.log('end point try block');
         const response = await fetch("https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQhgLbMsmN8e5xdiuUkPylNLeMPrRy2UeVJo10RZ8PQLrggEpHUOih6ZMXPBFtUFPaUTum8jovHHd_GSqeGtZJWtxCqjTehPw-kgfgri_I");
-        console.log(response);
         const buffer = await response.arrayBuffer();
-        console.log("point pass respones and buffer in end point")
         
         res.set("Content-Type", "image/jpeg");
         res.send(Buffer.from(buffer));
     } catch (err) {
-        console.log('server catch block');
         res.send(err);
     }
     

@@ -27,20 +27,22 @@
         
         <script>
             document.getElementById("capy-btn").addEventListener("click", async () => {
-                console.log("click");
                 try{
-                    console.log("button try block");
+                    // the fetch request here is making a call to the server endpoint
+                    // the frontend only handles the response that comes back from the endpoint
                     const res = await fetch('/anson-page/capy-btn');
-                    console.log(res)
-                    
                     const blob = await res.blob();
                     const imgURL = URL.createObjectURL(blob);
+
+                    // the handling is to change the image with the one returned from the server endpoint
                     document.getElementById("capy-img").src = imgURL;
+                    
+                    // the below DOM manipulation is hard coded
+                    // but in more complex apps, it can be data that comes from the server
                     document.getElementById("capy-img").alt = "A sparkling capybara";
                     document.getElementById("capy-caption").textContent= "Sparkling!";
 
                 } catch (error) {
-                    console.log("button catch block");
                     console.log(error)
                 }
 
