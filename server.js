@@ -45,6 +45,105 @@ app.get('/ZEN',(req, res) => {
 });
 
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+let APIResult = [];
+let qIndex = 0;
+let scoreCount = 0;
+
+async function getQuiz() {
+  try {
+    const res = await fetch("https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=boolean");
+    const data = await res.json();
+    APIResult = data.results;
+    //console.log(APIResult);
+  } catch (err) {
+    console.error("Error fetching quiz:", err);
+  }
+
+}
+
+app.get('/reset', async (req, res) => {  
+  scoreCount = 0;
+  qIndex = 0;
+});
+
+app.get('/quiz', async (req, res) => {  
+  if (APIResult.length === 0) await getQuiz();
+  res.json(APIResult[qIndex]);
+});
+
+app.post('/answer', (req, res) => 
+  {
+    const correct = APIResult[qIndex].correct_answer;
+    const answer = req.body.answer;
+    let result;
+    let endMessage = "";
+
+    if(qIndex === APIResult.length - 1)
+    {
+        switch (true)
+        {
+          case scoreCount < 1:
+            endMessage = "END: there is no hope 💀";  
+            break;
+          case scoreCount < 2:
+            endMessage = "END: you cant be that bad 😵";
+            break;
+          case scoreCount < 4:
+            endMessage = "END: well done now we talking 😮";
+            break;
+          case scoreCount < 6:
+            endMessage = "END: absolutely fabulous 🫡";
+            break;       
+          default:
+            endMessage = "END: ok";  
+        }
+    }
+
+    if(answer == correct) 
+      {
+        scoreCount++;
+        result = {answer: true, message: "CORRECT", score: scoreCount, quizEndMessage: endMessage};
+      }
+        
+    else result = {answer: false, message: "WRONG", score: scoreCount, quizEndMessage: endMessage};
+
+
+
+    res.json(result);
+
+  });
+
+  app.post('/next', (req, res) => 
+  {
+    qIndex = (qIndex + 1) % APIResult.length;
+
+    res.json(APIResult[qIndex]);
+  });
+
+  function isItLastQuestion()
+  {
+    return qIndex === APIResult.length;
+  }
+
+
+
+// Middleware: simple login check
+app.post('/login', (req, res) => {
+  let name = req.body.name;
+  let password = req.body.password;
+
+  if (name === 'zen' && password === '111') {
+    res.send('✅ Login successful! Welcome ' + name); 
+  } else {
+    return res.status(401).send('Invalid username or password');
+  }
+});
+
+
+
 app.get("/rafi", (req, res) => {
   res.sendFile(path.join(__dirname, 'src/rafi.html'));
 });
