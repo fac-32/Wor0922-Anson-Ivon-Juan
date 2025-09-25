@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+//const fetch = require("node-fetch");
 
 //Imports Node’s built-in path module.
 //path helps you work with file and directory paths safely across operating systems.
@@ -30,6 +31,47 @@ app.get('/ZEN',(req, res) => {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+let APIResult = [];
+let qIndex = 0;
+
+async function getQuiz() {
+  try {
+    const res = await fetch("https://opentdb.com/api.php?amount=15&category=9&difficulty=easy&type=boolean");
+    const data = await res.json();
+    console.log(data); // peek at what comes back
+    APIResult = data.results; // array of questions
+  } catch (err) {
+    console.error("Error fetching quiz:", err);
+  }
+}
+
+app.get('/quiz', async (req, res) => {  
+  if (APIResult.length === 0) await getQuiz();
+  res.json(APIResult[qIndex]);
+});
+
+app.post('/answer', (req, res) => 
+  {
+    const correct = APIResult[qIndex].correct_answer;
+    const answer = req.body.answer;
+    let result;
+
+    if(answer == correct) result = {answer: true, message: "CORRECT"};
+    else result = {answer: false, message: "WRONG"};
+
+    res.json(result);
+
+  });
+
+  app.post('/next', (req, res) => 
+  {
+    qIndex = (qIndex + 1) % APIResult.length;
+
+    res.json(APIResult[qIndex]);
+  });
+
+
+
 // Middleware: simple login check
 app.post('/login', (req, res) => {
   let name = req.body.name;
@@ -41,11 +83,6 @@ app.post('/login', (req, res) => {
     return res.status(401).send('Invalid username or password');
   }
 });
-
-app.post('/true', (req, res) => 
-  {
-    
-  });
 
 
 

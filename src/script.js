@@ -1,6 +1,6 @@
 // Toggle hidden information
 const question = document.getElementById("Question");
-const nextQuestion = document.getElementById("next-question");
+const nextQuestionEl = document.getElementById("next-question");
 const Truebtn = document.getElementById("True");
 const Falsebtn = document.getElementById("False");
 const hiddenInfo = document.querySelector(".hidden-info");
@@ -8,57 +8,54 @@ const feeedback = document.getElementById("feedback");
 
 const section1 = document.getElementById("section1");
 
-let APIResult = [];
-let qIndex = 0;
-let correctText = "CORRECT!!";
-let wrongText = "NOPE!!";
+async function loadQuestions()
+{
+  const res = await fetch('/quiz');
+  const data = await res.json();
+  question.textContent = data.question;
 
-async function getQuiz() {
-  try {
-    const res = await fetch("https://opentdb.com/api.php?amount=15&category=9&difficulty=easy&type=boolean");
-    const data = await res.json();
-    console.log(data); // peek at what comes back
-    return data.results; // array of questions
-  } catch (err) {
-    console.error("Error fetching quiz:", err);
-  }
 }
 
-async function startQuiz()
+async function sendAnswer(answer)
 {
-  APIResult = await getQuiz();
-  showQuestion();
-}
-
-function showQuestion()
-{
-  if(APIResult.length > 0)
+  const res = await fetch("/answer", 
     {
-      question.innerText = APIResult[qIndex].question;
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({answer})
+    });
 
-    }
+    const data = await res.json();
+    feeedback.textContent = data.message;
+}
+
+async function nextQuestion()
+{
+    const res = await fetch("/next", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" }
+  });
+  const data = await res.json();
+
+  question.innerText = data.question;
 }
 
 // start everything when page loads
-window.addEventListener("DOMContentLoaded", startQuiz);
+window.addEventListener("DOMContentLoaded", loadQuestions);
 
 section1.addEventListener("click", (e) => {
   const target = e.target;
 
-  hiddenInfo.classList.toggle("hidden-info");
+  if (target.id == "next-question") {
 
-  if(target.id === APIResult[qIndex].correct_answer) feeedback.innerText = correctText;
-  else
-  {
-      feeedback.textContent = wrongText;
+    nextQuestion();
+    hiddenInfo.style.display = "none"; 
   }
 
-  if (target.id == "next-question") {
-    if(qIndex < APIResult.length)
-      {
-        qIndex++;
-        showQuestion();
-      }
+  if(target.id === "True" || target.id === "False") 
+  {
+    hiddenInfo.style.display = "block"; 
+    sendAnswer(target.id);
   }
 });
 
