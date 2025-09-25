@@ -23,6 +23,25 @@ app.get('/anson-page', (req, res) => {
     res.sendFile(path.join(__dirname, 'src/anson-page.html'));
 })
 
+app.get('/anson-page/capy-btn', async (req, res) => {
+    console.log("end point");
+    try {
+        console.log('end point try block');
+        const response = await fetch("https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQhgLbMsmN8e5xdiuUkPylNLeMPrRy2UeVJo10RZ8PQLrggEpHUOih6ZMXPBFtUFPaUTum8jovHHd_GSqeGtZJWtxCqjTehPw-kgfgri_I");
+        console.log(response);
+        const buffer = await response.arrayBuffer();
+        console.log("point pass respones and buffer in end point")
+        
+        res.set("Content-Type", "image/jpeg");
+        res.send(Buffer.from(buffer));
+    } catch (err) {
+        console.log('server catch block');
+        res.send(err);
+    }
+    
+    // res.send('click');
+})
+
 //__dirname is a special variable in Node.
 //It always contains the absolute path of the folder where the current JS file lives.
 
