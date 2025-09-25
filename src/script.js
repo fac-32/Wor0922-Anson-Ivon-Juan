@@ -24,6 +24,7 @@ async function loadQuestions()
 
 async function sendAnswer(answer)
 {
+  if(GameOver || !canAnswer) return;
   const res = await fetch("/answer", 
     {
       method: "POST",
@@ -31,7 +32,7 @@ async function sendAnswer(answer)
       body: JSON.stringify({answer})
     });
 
-    if(GameOver || !canAnswer) return;
+    
     const data = await res.json();
     feeedback.textContent = data.message;
     score.innerText = data.score + " / " + questionNum + " " + data.quizEndMessage;
