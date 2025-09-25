@@ -17,8 +17,28 @@ const PORT = process.env.PORT || 3000;
 //process.env.PORT → If you deploy to a cloud service, it might assign a port automatically.
 //|| 3000 → If there’s no environment variable, it defaults to port 3000.
 
+// Serve everything inside your project folder (HTML, CSS, JS, images)
+app.use(express.static(path.join(__dirname)));
+
+app.get('/anson-page', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src/anson-page.html'));
+})
+
+app.get('/anson-page/capy-btn', async (req, res) => {
+    try {
+        const response = await fetch("https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQhgLbMsmN8e5xdiuUkPylNLeMPrRy2UeVJo10RZ8PQLrggEpHUOih6ZMXPBFtUFPaUTum8jovHHd_GSqeGtZJWtxCqjTehPw-kgfgri_I");
+        const buffer = await response.arrayBuffer();
+        
+        res.set("Content-Type", "image/jpeg");
+        res.send(Buffer.from(buffer));
+    } catch (err) {
+        res.send(err);
+    }
+    
+    // res.send('click');
+})
 // Serve static files from src/ (CSS, client JS, images, html)
-app.use(express.static(path.join(__dirname, 'src')));
+//app.use(express.static(path.join(__dirname, 'src')));
 
 //__dirname is a special variable in Node.
 //It always contains the absolute path of the folder where the current JS file lives.
@@ -26,7 +46,6 @@ app.use(express.static(path.join(__dirname, 'src')));
 app.get('/ZEN',(req, res) => {
   res.sendFile(path.join(__dirname, 'src/Zindex.html'));
 });
-
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
