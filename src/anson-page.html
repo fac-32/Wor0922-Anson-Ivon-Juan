@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>New Page by Anson</title>
-        <!-- <link rel="stylesheet" href="src/styles.css" /> -->
+        <link rel="stylesheet" href="src/styles.css" />
     </head>
     <body>
         <div>
@@ -13,9 +13,41 @@
                     src="src/img/capybara-onsen.jpeg"
                     alt="Capybara enjoying a dip in the hot srping with oranges floating around."
                     style="max-width: 50vw; height: auto; display: inline;"
+                    id="capy-img"
                 >
-                <figcaption>Bath time!</figcaption>
+                <figcaption id="capy-caption">Bath time!</figcaption>
             </figure>
+            <button
+                id="capy-btn"
+                style="margin: 0% auto; display: flex; justify-content: center;"
+            >
+                Click to change capy!
+            </button>
         </div>
+        
+        <script>
+            document.getElementById("capy-btn").addEventListener("click", async () => {
+                try{
+                    // the fetch request here is making a call to the server endpoint
+                    // the frontend only handles the response that comes back from the endpoint
+                    const res = await fetch('/anson-page/capy-btn');
+                    const blob = await res.blob();
+                    const imgURL = URL.createObjectURL(blob);
+
+                    // the handling is to change the image with the one returned from the server endpoint
+                    document.getElementById("capy-img").src = imgURL;
+                    
+                    // the below DOM manipulation is hard coded
+                    // but in more complex apps, it can be data that comes from the server
+                    document.getElementById("capy-img").alt = "A sparkling capybara";
+                    document.getElementById("capy-caption").textContent= "Sparkling!";
+
+                } catch (error) {
+                    console.log(error)
+                }
+
+            })
+
+        </script>
     </body>
 </html>
