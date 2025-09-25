@@ -59,8 +59,6 @@ section1.addEventListener("click", (e) => {
   }
 });
 
-
-
 // Change background color of the box
 let colourInterval;
 const colorBox = document.getElementById("color-box");
@@ -96,8 +94,22 @@ colourBtnGp.addEventListener("click", (event) => {
 // Form submission handling
 const form = document.getElementById("feedback-form");
 const formResponse = document.getElementById("form-response");
+const duck = document.getElementById("duck-image");
 
-form.addEventListener("submit", (event) => {
+const test = document.getElementById("test");
+test.addEventListener("click", async (event) => {
+  try {
+    console.log("about to try to contact server");
+    const res = await fetch("/submit");
+    console.log("server has been contacted");
+    const data = await res.json();
+    console.log(data);
+  } catch ( err ) {
+    console.error("ahhhhh error!!!", err);
+  }
+});
+
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const name = document.getElementById("name").value;
   const feedback = document.getElementById("feedback").value;
@@ -112,6 +124,15 @@ form.addEventListener("submit", (event) => {
   if (!/^[a-z0-9\s]+$/.test(name)) {
     alert('Please only include alphanumeric characters in your name.');
   }
+
+  try {
+    const res = await fetch("http://localhost:3000/submit");
+    const data = await res.json();
+    duck.setAttribute("src", data.url);
+  } catch ( err ) {
+    console.error("error fetching duck:", err);
+  }
+
   formResponse.textContent = `Thank you, ${name}, for your feedback: "${feedback}"`;
   form.reset();
 });

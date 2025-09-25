@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/fac-32/Wor0922-Anson-Ivon-Juan#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
     "express": "^5.1.0"
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 
 //Imports Node’s built-in path module.
@@ -30,9 +31,25 @@ app.get('/ZEN',(req, res) => {
   res.sendFile(path.join(__dirname, 'src/Zindex.html'));
 });
 
-
 app.get("/rafi", (req, res) => {
   res.sendFile(path.join(__dirname, 'src/rafi.html'));
+});
+
+const corsOptions = {
+  origin: "http://localhost:3000/",
+  methods: ["GET"],
+  allowHeaders: ["Content-Type"]
+}
+
+app.get("/submit", cors(corsOptions), async (req, res) => {
+  try {
+    const res = await fetch("https://random-d.uk/api/v2/quack");
+    console.log("helllo");
+    const data = await res.json();
+    res.json(data.url);
+  } catch ( err ) {
+    res.status(500).json({ error: "error fetching duck" });
+  }
 });
 
 //Only runs if the request is:
@@ -51,8 +68,10 @@ app.get("/rafi", (req, res) => {
 
 // Fallback: send index.html if route not found (useful if you later add client-side routing)
 app.use((req, res) => {
+  res.header("Access-Control-Allow-Origin", "https://random-d.uk/api/v2/quack");
   res.sendFile(path.join(__dirname, 'src/index.html'));
 });
+
 
 //This is a fallback route.
 //app.use() without a path matches all requests that haven’t been handled yet.
