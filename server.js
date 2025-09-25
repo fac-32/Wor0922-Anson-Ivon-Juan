@@ -111,8 +111,6 @@ app.post('/answer', (req, res) =>
         
     else result = {answer: false, message: "WRONG", score: scoreCount, quizEndMessage: endMessage};
 
-
-
     res.json(result);
 
   });

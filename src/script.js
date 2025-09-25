@@ -11,6 +11,7 @@ const section1 = document.getElementById("section1");
 
 let GameOver = false;
 let questionNum = 5;
+let canAnswer = true;
 
 async function loadQuestions()
 {
@@ -30,11 +31,12 @@ async function sendAnswer(answer)
       body: JSON.stringify({answer})
     });
 
-    if(GameOver) return;
+    if(GameOver || !canAnswer) return;
     const data = await res.json();
     feeedback.textContent = data.message;
     score.innerText = data.score + " / " + questionNum + " " + data.quizEndMessage;
-    if(data.quizEndMessage !== "") GameOver = true;
+    if(data.quizEndMessage != "") GameOver = true;
+    canAnswer = false;
 }
 
 async function nextQuestion()
@@ -47,6 +49,7 @@ async function nextQuestion()
 
   if(GameOver) return;
   question.innerText = data.question;
+  canAnswer = true;
 }
 
 async function resetQuiz()
