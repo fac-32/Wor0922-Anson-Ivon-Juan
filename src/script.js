@@ -5,14 +5,19 @@ const Truebtn = document.getElementById("True");
 const Falsebtn = document.getElementById("False");
 const hiddenInfo = document.querySelector(".hidden-info");
 const feeedback = document.getElementById("feedback");
+const score = document.getElementById("score");
 
 const section1 = document.getElementById("section1");
+
+let GameOver = false;
+let questionNum = 5;
 
 async function loadQuestions()
 {
   const res = await fetch('/quiz');
   const data = await res.json();
   question.textContent = data.question;
+  score.innerText = "0 / " + questionNum;
 
 }
 
@@ -25,8 +30,11 @@ async function sendAnswer(answer)
       body: JSON.stringify({answer})
     });
 
+    if(GameOver) return;
     const data = await res.json();
     feeedback.textContent = data.message;
+    score.innerText = data.score + " / " + questionNum + " " + data.quizEndMessage;
+    if(data.quizEndMessage !== "") GameOver = true;
 }
 
 async function nextQuestion()
@@ -37,14 +45,25 @@ async function nextQuestion()
   });
   const data = await res.json();
 
+  if(GameOver) return;
   question.innerText = data.question;
 }
 
+async function resetQuiz()
+{
+  GameOver = false;
+  const didReset = await fetch("/reset");
+}
+
+
 // start everything when page loads
 window.addEventListener("DOMContentLoaded", loadQuestions);
+window.addEventListener("beforeunload", resetQuiz);
 
 section1.addEventListener("click", (e) => {
   const target = e.target;
+
+  if(GameOver) return;
 
   if (target.id == "next-question") {
 
