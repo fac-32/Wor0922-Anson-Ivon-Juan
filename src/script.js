@@ -55,7 +55,9 @@ async function nextQuestion()
 async function resetQuiz()
 {
   GameOver = false;
+  score.innerText = "0 / " + questionNum;
   const didReset = await fetch("/reset");
+
 }
 
 
